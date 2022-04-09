@@ -4,14 +4,18 @@ const start = document.getElementsByClassName("start")[0];
 const settings = document.getElementsByClassName("settings")[0];
 const minutesText = document.getElementById("minutesText");
 const secondsText = document.getElementById("secondsText");
+const ring = document.getElementsByClassName("ring")[0];
 
 let interval;
 
 const toggleTimer = () => {
   const startingMinutes = parseInt(minutesText.value);
   const startingSeconds = parseInt(secondsText.value);
-  const timer = { time: startingMinutes * 60 + startingSeconds - 1 };
+  const timer = { time: startingMinutes * 60 + startingSeconds };
+  if (timer.time != 0) timer.time--;
   if (minutesText.disabled) {
+    if (parseInt(minutesText.value) == 0 && parseInt(secondsText.value) == 0)
+      ring.classList.remove("ending");
     if (interval != null) {
       start.innerHTML = "start";
       clearInterval(interval);
@@ -29,9 +33,15 @@ const updateTimer = (timer) => () => {
 
   sec = sec < 10 ? "0" + sec : sec;
   min = min < 10 ? "0" + min : min;
+  console.log(min);
+  console.log(sec);
   document.getElementById("minutesText").value = min;
   document.getElementById("secondsText").value = sec;
-  if (timer.time > 0) timer.time--;
+  if (timer.time > 0) {
+    timer.time--;
+  } else {
+    ring.classList.add("ending");
+  }
 };
 
 settings.addEventListener("click", () => {
@@ -39,7 +49,8 @@ settings.addEventListener("click", () => {
     if (minutesText.disabled === false) {
       if (
         parseInt(minutesText.value) > 60 ||
-        parseInt(secondsText.value) > 60
+        parseInt(secondsText.value) > 60 ||
+        (parseInt(minutesText.value) == 0 && parseInt(secondsText.value) == 0)
       ) {
         alert("Wrong Input!");
       } else {
