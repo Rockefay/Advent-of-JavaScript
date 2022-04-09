@@ -6,6 +6,8 @@ const minutesText = document.getElementById("minutesText");
 const secondsText = document.getElementById("secondsText");
 const ring = document.getElementsByClassName("ring")[0];
 
+const audio = new Audio("notification-sound.mp3");
+
 let interval;
 
 const toggleTimer = () => {
@@ -33,14 +35,13 @@ const updateTimer = (timer) => () => {
 
   sec = sec < 10 ? "0" + sec : sec;
   min = min < 10 ? "0" + min : min;
-  console.log(min);
-  console.log(sec);
   document.getElementById("minutesText").value = min;
   document.getElementById("secondsText").value = sec;
   if (timer.time > 0) {
     timer.time--;
   } else {
     ring.classList.add("ending");
+    audio.play();
   }
 };
 
@@ -48,7 +49,10 @@ settings.addEventListener("click", () => {
   if (start.innerHTML == "start") {
     if (minutesText.disabled === false) {
       if (
-        parseInt(minutesText.value) > 60 ||
+        minutesText.value > "9" ||
+        secondsText.value > "9" ||
+        minutesText.value < "0" ||
+        secondsText.value < "0" ||
         parseInt(secondsText.value) > 60 ||
         (parseInt(minutesText.value) == 0 && parseInt(secondsText.value) == 0)
       ) {

@@ -16,3 +16,5 @@ Users should be able to:
 - Start and Stop the Timer
 - Click on the gear icon to change the length (minutes and seconds) for the timer.
 
+
+Notification sound from https://notificationsounds.com/
