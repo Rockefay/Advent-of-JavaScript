@@ -29,24 +29,27 @@ const updateTimer = (timer) => () => {
 
   sec = sec < 10 ? "0" + sec : sec;
   min = min < 10 ? "0" + min : min;
-  console.log(min.toString());
-  console.log(sec.toString());
   document.getElementById("minutesText").value = min;
   document.getElementById("secondsText").value = sec;
-  timer.time--;
+  if (timer.time > 0) timer.time--;
 };
 
 settings.addEventListener("click", () => {
-  if (minutesText.disabled === false) {
-    if (parseInt(minutesText.value) > 60 || parseInt(secondsText.value) > 60) {
-      alert("Wrong Input!");
+  if (start.innerHTML == "start") {
+    if (minutesText.disabled === false) {
+      if (
+        parseInt(minutesText.value) > 60 ||
+        parseInt(secondsText.value) > 60
+      ) {
+        alert("Wrong Input!");
+      } else {
+        minutesText.setAttribute("disabled", "");
+        secondsText.setAttribute("disabled", "");
+      }
     } else {
-      minutesText.setAttribute("disabled", "");
-      secondsText.setAttribute("disabled", "");
+      minutesText.removeAttribute("disabled");
+      secondsText.removeAttribute("disabled");
     }
-  } else {
-    minutesText.removeAttribute("disabled");
-    secondsText.removeAttribute("disabled");
   }
 });
 
