@@ -10,7 +10,6 @@ changeKey = () => {
 };
 
 document.addEventListener("keydown", function (event) {
-  console.log(event.key.toUpperCase());
   if (
     event.key.toUpperCase() ==
     document.getElementsByClassName("jiggle")[0].dataset.key
@@ -27,3 +26,14 @@ document.addEventListener("keydown", function (event) {
     }
   }
 });
+
+for (let i = 0; i < keys.length; i++) {
+  keys[i].addEventListener("click", () => {
+    if (
+      keys[i].dataset.key ==
+      document.getElementsByClassName("jiggle")[0].dataset.key
+    ) {
+      changeKey();
+    }
+  });
+}
