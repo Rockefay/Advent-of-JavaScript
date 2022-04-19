@@ -1,12 +1,11 @@
-const key = document.getElementsByClassName("key");
-//document.getElementsByClassName("jiggle")[0];
+const keys = document.getElementsByClassName("key");
 
 changeKey = () => {
   const jiggle = document.getElementsByClassName("jiggle")[0];
 
   jiggle.classList.remove("jiggle");
 
-  const newKey = key[Math.floor(Math.random() * key.length)];
+  const newKey = keys[Math.floor(Math.random() * keys.length)];
   newKey.classList.add("jiggle");
 };
 
@@ -17,5 +16,14 @@ document.addEventListener("keydown", function (event) {
     document.getElementsByClassName("jiggle")[0].dataset.key
   ) {
     changeKey();
+  } else {
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i].dataset.key == event.key.toUpperCase()) {
+        keys[i].classList.add("mistake");
+        setTimeout(() => {
+          keys[i].classList.remove("mistake");
+        }, 250);
+      }
+    }
   }
 });
