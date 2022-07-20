@@ -3,6 +3,10 @@ const date = document.getElementsByClassName("date");
 const temperature = document.getElementsByClassName("temperature");
 const precipitation = document.getElementsByClassName("precipitation");
 const low = document.getElementsByClassName("low");
+const weather = document.getElementsByClassName("weather");
+const bar = document.getElementsByClassName("bar");
+const svg = document.getElementsByClassName("svg");
+const img = document.getElementsByClassName("img");
 
 const daysOfWeekMap = {
   0: "SUN",
@@ -61,10 +65,52 @@ async function setWeather() {
       Math.round(weatherData.daily[i].temp.day) + String.fromCharCode(176);
 
     //Change precipitation and low temperature
-    precipitation[i].innerHTML += weatherData.daily[i].pop + "%";
+    precipitation[i].innerHTML += weatherData.daily[i].pop * 100 + "%";
 
     low[i].innerHTML +=
       Math.round(weatherData.daily[i].temp.min) + String.fromCharCode(176);
+
+    //Change svgs
+    let typeOfWeather;
+    if (
+      weatherData.daily[i].weather[0].id >= 200 &&
+      weatherData.daily[i].weather[0].id <= 232
+    )
+      typeOfWeather = "stormy";
+    else if (
+      weatherData.daily[i].weather[0].id >= 300 &&
+      weatherData.daily[i].weather[0].id <= 531
+    )
+      typeOfWeather = "rainy";
+    else if (
+      weatherData.daily[i].weather[0].id >= 600 &&
+      weatherData.daily[i].weather[0].id <= 622
+    )
+      typeOfWeather = "snowy";
+    else if (weatherData.daily[i].weather[0].id == 800) typeOfWeather = "sunny";
+    else if (
+      weatherData.daily[i].weather[0].id >= 801 &&
+      weatherData.daily[i].weather[0].id <= 802
+    )
+      typeOfWeather = "partly-cloudy";
+    else if (
+      weatherData.daily[i].weather[0].id >= 803 &&
+      weatherData.daily[i].weather[0].id <= 804
+    )
+      typeOfWeather = "cloudy";
+
+    console.log(typeOfWeather);
+    bar[i].classList.add(typeOfWeather);
+    svg[i].setAttribute("xlink:href", "#" + typeOfWeather);
+    img[i].setAttribute("width", iconNameToSizeMap[typeOfWeather].width);
+    img[i].setAttribute("height", iconNameToSizeMap[typeOfWeather].height);
+    img[i].setAttribute(
+      "viewBox",
+      "0 0 " +
+        iconNameToSizeMap[typeOfWeather].width +
+        " " +
+        iconNameToSizeMap[typeOfWeather].height
+    );
   }
 }
 
