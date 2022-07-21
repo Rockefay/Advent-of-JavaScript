@@ -4,6 +4,7 @@ const listItems = document.getElementsByClassName("list-item");
 const left = document.getElementsByClassName("left")[0];
 const right = document.getElementsByClassName("right")[0];
 const featureImg = document.getElementsByClassName("feature-img")[0];
+const caption = document.getElementsByClassName("caption")[0];
 
 const content = [
   {
@@ -12,7 +13,7 @@ const content = [
   },
   {
     image: "sherman-yang-VBBGigIuaDY-unsplash.jpg",
-    caption: "Photo by Sherman Yang n Unsplash",
+    caption: "Photo by Sherman Yang on Unsplash",
   },
   {
     image: "jakob-owens-EwRM05V0VSI-unsplash.jpg",
@@ -56,6 +57,7 @@ for (let i = 0; i < img.length; i++) {
   img[i].addEventListener("click", () => {
     document.getElementsByClassName("selected")[0].classList.remove("selected");
     listItems[i].classList.add("selected");
+    changeImageAndCaption(i);
   });
 }
 left.addEventListener("click", () => {
@@ -68,6 +70,7 @@ left.addEventListener("click", () => {
   }
   document.getElementsByClassName("selected")[0].classList.remove("selected");
   listItems[index].classList.add("selected");
+  changeImageAndCaption(index);
 });
 right.addEventListener("click", () => {
   let index;
@@ -79,4 +82,10 @@ right.addEventListener("click", () => {
   }
   document.getElementsByClassName("selected")[0].classList.remove("selected");
   listItems[index].classList.add("selected");
+  changeImageAndCaption(index);
 });
+
+function changeImageAndCaption(index) {
+  featureImg.setAttribute("src", img[index].getAttribute("src"));
+  caption.innerHTML = content[index].caption;
+}
