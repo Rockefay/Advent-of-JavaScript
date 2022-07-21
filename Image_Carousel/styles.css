@@ -46,7 +46,7 @@ body {
   justify-content: center;
 }
 
-.thumbnails li:last-child img {
+.thumbnails li:last-child {
   margin-right: 100px;
 }
 
