@@ -25,3 +25,13 @@ for (let i = 0; i < verification.length; i++) {
     verification[verification.length - 1].focus();
   });
 }
+
+//Checking if the code is correct
+verifyButton.addEventListener("click", () => {
+  let userCode = "";
+  for (let i = 0; i < verification.length; i++) {
+    userCode += verification[i].value;
+  }
+  if (userCode == autCode) alert("AUTHORIZATION SUCCESSFUL");
+  else alert("AUTHORIZATION UNSUCCESSFUL");
+});
