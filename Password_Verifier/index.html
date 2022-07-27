@@ -16,13 +16,16 @@
     <p>Please enter the code that we sent to (***) *** - 2819.</p>
     <form action="">
       <div class="fields">
-        <input type="text" maxlength="1" value="1" name="verification_1" />
-        <input type="text" maxlength="1" value="" name="verification_2" />
-        <input type="text" maxlength="1" value="" name="verification_3" />
-        <input type="text" maxlength="1" value="" name="verification_4" />
+        <input class="verification" id="verification_1" type="text" maxlength="1" value="" name="verification_1"
+          onkeyup="nextNumber(this, 'verification_2')" />
+        <input class="verification" id="verification_2" type="text" maxlength="1" value="" name="verification_2"
+          onkeyup="nextNumber(this, 'verification_3')" />
+        <input class="verification" id="verification_3" type="text" maxlength="1" value="" name="verification_3"
+          onkeyup="nextNumber(this, 'verification_4')" />
+        <input class="verification" id="verification_4" type="text" maxlength="1" value="" name="verification_4" />
       </div>
-      <button>Verify</button>
     </form>
+    <button class="verify-button">Verify</button>
   </div>
   <script src="app.js"></script>
 </body>
