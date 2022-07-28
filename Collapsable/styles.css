@@ -76,6 +76,7 @@ a {
 .expand .question:after,
 a:hover .question:after {
   background-color: #ffdd00;
+  transition: 0.7s;
 }
 
 .question .content {
@@ -94,4 +95,8 @@ a:hover .question:after {
   margin-left: 55px;
   padding: 30px 75px;
   box-sizing: border-box;
+}
+
+.question-expanded:after {
+  background: #f0f0f0 url("./images/close.svg") calc(100% - 12px) 20px no-repeat;
 }
