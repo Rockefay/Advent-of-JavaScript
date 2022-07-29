@@ -63,8 +63,19 @@ body.winner.computer-wins {
   background-size: auto 100%;
 }
 
+body.winner.draw {
+  background: #e8923c;
+}
+
 body.computer-wins h1.you-win,
-body.you-win h1.computer-wins {
+body.you-win h1.computer-wins,
+body.computer-wins h1.draw,
+body.you-win h1.draw {
+  visibility: hidden;
+}
+
+body.draw h1.you-win,
+body.draw h1.computer-wins {
   visibility: hidden;
 }
 
