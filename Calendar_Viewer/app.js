@@ -1,6 +1,8 @@
 const month = document.getElementsByClassName("month")[0];
 const day = document.getElementsByClassName("day");
 const dayOfWeek = document.getElementsByClassName("day-of-week");
+const previous = document.getElementsByClassName("previous")[0];
+const next = document.getElementsByClassName("next")[0];
 
 const monthNames = {
   0: { name: "January", length: 31 },
@@ -20,6 +22,42 @@ const monthNames = {
 const currentDate = new Date();
 let chosenDate = currentDate;
 
+previous.addEventListener("click", () => {
+  if (chosenDate.getMonth() - 1 >= 0) {
+    chosenDate = new Date(
+      chosenDate.getFullYear(),
+      chosenDate.getMonth() - 1,
+      chosenDate.getDate()
+    );
+  } else {
+    chosenDate = new Date(
+      chosenDate.getFullYear() - 1,
+      11,
+      chosenDate.getDate()
+    );
+  }
+  clearCalendar();
+  showCalendar(chosenDate.getFullYear(), chosenDate.getMonth());
+});
+
+next.addEventListener("click", () => {
+  if (chosenDate.getMonth() + 1 <= 11) {
+    chosenDate = new Date(
+      chosenDate.getFullYear(),
+      chosenDate.getMonth() + 1,
+      chosenDate.getDate()
+    );
+  } else {
+    chosenDate = new Date(
+      chosenDate.getFullYear() + 1,
+      0,
+      chosenDate.getDate()
+    );
+  }
+  clearCalendar();
+  showCalendar(chosenDate.getFullYear(), chosenDate.getMonth());
+});
+
 showCalendar(chosenDate.getFullYear(), chosenDate.getMonth());
 
 function showCalendar(chosenYear, chosenMonth) {
@@ -28,9 +66,13 @@ function showCalendar(chosenYear, chosenMonth) {
   const firstDayOfMonth = getfirstDayOfMonth(chosenYear, chosenMonth);
 
   let weekDay = firstDayOfMonth.getDay();
+  let monthLength = monthNames[chosenMonth].length;
+
+  if (chosenDate.getFullYear() % 4 == 0 && chosenDate.getMonth() == 1)
+    monthLength++;
 
   for (let i = 0, j = 1; i < day.length; i++) {
-    if (i == weekDay && j <= monthNames[chosenMonth].length) {
+    if (i == weekDay && j <= monthLength) {
       day[i].innerHTML = j;
       weekDay++;
       j++;
@@ -43,6 +85,14 @@ function showCalendar(chosenYear, chosenMonth) {
       day[i + 1].classList.add("today");
   }
 }
+
+function clearCalendar() {
+  for (let i = 0; i < day.length; i++) {
+    day[i].innerHTML = "";
+    if (day[i].classList.contains("today")) day[i].classList.remove("today");
+  }
+}
+
 function getfirstDayOfMonth(year, month) {
   return new Date(year, month, 1);
 }
