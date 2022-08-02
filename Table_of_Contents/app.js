@@ -1,4 +1,4 @@
-const items = document.querySelectorAll("h3");
+const items = document.querySelectorAll("section");
 document.addEventListener("scroll", () => {
   for (let i = 0; i < items.length; i++) {
     const id = items[i].getAttribute("class");
@@ -19,6 +19,6 @@ document.addEventListener("scroll", () => {
 });
 function isInView(el) {
   let data = el.getBoundingClientRect();
-  if (data.top < 800 && data.top > 0) return true;
+  if (data.top < 600 && data.bottom > 0) return true;
   else return false;
 }
