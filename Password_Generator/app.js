@@ -17,6 +17,8 @@ const characters = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 };
 
+let wait;
+
 //first generation
 generatePassword(
   inputSymbols.checked,
@@ -29,6 +31,7 @@ generatePassword(
 slider.oninput = function () {
   lengthText.innerHTML = this.value;
   copy.classList.remove("copied");
+  clearTimeout(wait);
   generatePassword(
     inputSymbols.checked,
     inputNumbers.checked,
@@ -41,7 +44,12 @@ slider.oninput = function () {
 copy.addEventListener("click", () => {
   navigator.clipboard.writeText(password.value);
   copy.classList.add("copied");
+  wait = setTimeout(removeCopied, 5000);
 });
+
+function removeCopied() {
+  copy.classList.remove("copied");
+}
 
 function generatePassword(symbols, numbers, lowercase, uppercase, similar) {
   password.value = "";
