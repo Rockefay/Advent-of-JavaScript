@@ -1,6 +1,10 @@
 const field = document.getElementsByClassName("field");
 
-const checkBoxes = document.querySelectorAll("input.checkbox");
+const inputSymbols = document.querySelector("input#symbols");
+const inputNumbers = document.querySelector("input#numbers");
+const inputLowercase = document.querySelector("input#lowercase");
+const inputUppercase = document.querySelector("input#uppercase");
+const inputSimilar = document.querySelector("input#similar");
 const slider = document.querySelectorAll("input#length")[0];
 
 const lengthText = document.getElementById("lengthText");
@@ -13,13 +17,28 @@ const characters = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 };
 
-generatePassword(true, true, true, true, false);
+//first generation
+generatePassword(
+  inputSymbols.checked,
+  inputNumbers.checked,
+  inputLowercase.checked,
+  inputUppercase.checked,
+  inputSimilar.checked
+);
 
 slider.oninput = function () {
   lengthText.innerHTML = this.value;
+  generatePassword(
+    inputSymbols.checked,
+    inputNumbers.checked,
+    inputLowercase.checked,
+    inputUppercase.checked,
+    inputSimilar.checked
+  );
 };
 
 function generatePassword(symbols, numbers, lowercase, uppercase, similar) {
+  password.value = "";
   let characterBase = "";
   if (symbols) characterBase += characters.symbols;
   if (numbers) characterBase += characters.numbers;
@@ -38,5 +57,8 @@ function generatePassword(symbols, numbers, lowercase, uppercase, similar) {
   for (let i = 0; i < slider.value; i++) {
     password.value +=
       characterBase[Math.floor(Math.random() * characterBase.length)];
+  }
+  if (!symbols && !numbers && !lowercase && !uppercase && !similar) {
+    password.value = "";
   }
 }
