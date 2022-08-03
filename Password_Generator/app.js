@@ -75,4 +75,7 @@ function generatePassword(symbols, numbers, lowercase, uppercase, similar) {
   if (!symbols && !numbers && !lowercase && !uppercase && !similar) {
     password.value = "";
   }
+  if (!symbols && !numbers && !lowercase && !uppercase && similar) {
+    password.value = "";
+  }
 }
