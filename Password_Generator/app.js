@@ -1,4 +1,4 @@
-const field = document.getElementsByClassName("field");
+const copy = document.getElementsByClassName("copy")[0];
 
 const inputSymbols = document.querySelector("input#symbols");
 const inputNumbers = document.querySelector("input#numbers");
@@ -28,6 +28,7 @@ generatePassword(
 
 slider.oninput = function () {
   lengthText.innerHTML = this.value;
+  copy.classList.remove("copied");
   generatePassword(
     inputSymbols.checked,
     inputNumbers.checked,
@@ -36,6 +37,11 @@ slider.oninput = function () {
     inputSimilar.checked
   );
 };
+
+copy.addEventListener("click", () => {
+  navigator.clipboard.writeText(password.value);
+  copy.classList.add("copied");
+});
 
 function generatePassword(symbols, numbers, lowercase, uppercase, similar) {
   password.value = "";
