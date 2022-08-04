@@ -3,9 +3,7 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirm-password");
 
-document.addEventListener("click", () => {
-  if (document.activeElement === document.querySelector("body")) checkData();
-});
+document.addEventListener("click", checkData);
 
 function checkData() {
   if (!userName.value == "" && !userName.value == " ") {
@@ -48,7 +46,11 @@ function checkData() {
     )[0].innerHTML = `<img src="./images/error.svg" alt="Success" /> Password and confirm password must match`;
   }
 
-  if (confirmPassword.value == "") {
+  if (password.value == "" && !confirmPassword.value == "")
+    document.getElementsByClassName(
+      "confirm-password error"
+    )[0].innerHTML = `<img src="./images/error.svg" alt="Success" /> Password and confirm password must match`;
+  else if (password.value == "") {
     document.getElementsByClassName("confirm-password error")[0].innerHTML = "";
     document.getElementsByClassName("confirm-password success")[0].innerHTML =
       "";
