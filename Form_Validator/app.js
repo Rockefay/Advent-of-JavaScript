@@ -3,7 +3,24 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirm-password");
 
+const showHide = document.getElementsByClassName("show-hide");
+
 document.addEventListener("click", checkData);
+
+for (let i = 0; i < showHide.length; i++) {
+  showHide[i].addEventListener("click", () => {
+    const id = showHide[i].getAttribute("inputID");
+    if (
+      document.querySelector(`input#${id}`).getAttribute("type") == "password"
+    ) {
+      document.querySelector(`div.${id}`).classList.add("show");
+      document.querySelector(`input#${id}`).setAttribute("type", "text");
+    } else {
+      document.querySelector(`div.${id}`).classList.remove("show");
+      document.querySelector(`input#${id}`).setAttribute("type", "password");
+    }
+  });
+}
 
 function checkData() {
   if (!userName.value == "" && !userName.value == " ") {
