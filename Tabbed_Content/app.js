@@ -1,5 +1,6 @@
 const episode = document.getElementsByClassName("episode");
 const title = document.getElementsByClassName("title");
+const listItem = document.getElementsByClassName("list-item");
 
 const episodes = [
   {
@@ -60,7 +61,21 @@ const episodes = [
   },
 ];
 
-for (let i = 0; i < episode.length; i++) {
+for (let i = 0; i < listItem.length; i++) {
   episode[i].innerHTML = `Episode ${episodes[i].id}`;
   title[i].innerHTML = episodes[i].title;
+
+  listItem[i].addEventListener("click", () => {
+    document.getElementsByClassName("selected")[0].classList.remove("selected");
+    listItem[i].classList.add("selected");
+    document
+      .querySelector("div.cover > img")
+      .setAttribute("src", `./images/cover__episode-${episodes[i].id}.png`);
+    document.querySelector("div.content > h1").innerHTML = episodes[i].title;
+    document.querySelector("div.content > p").innerHTML =
+      episodes[i].description;
+    document
+      .querySelector("div.content > a")
+      .setAttribute("href", episodes[i].link);
+  });
 }
