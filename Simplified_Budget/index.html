@@ -15,7 +15,7 @@
     <div class="add-panel">
       <h1>Simplified Budget</h1>
       <div class="field">
-        <input type="text" name="income" id="income" />
+        <input type="number" name="income" id="income" />
         <label for="income">Budget Amount</label>
       </div>
       <div class="add-expense">
@@ -24,7 +24,7 @@
           <label for="expense-name">Expense</label>
         </div>
         <div class="field">
-          <input type="text" name="expense-amount" id="expense-amount" />
+          <input type="number" name="expense-amount" id="expense-amount" />
           <label for="expense-amount">Amount</label>
         </div>
         <button name="add-expense-button" id="add-expense-button" class="add-expense-button">
@@ -37,47 +37,24 @@
       <h2>Expenses</h2>
       <div class="expense-table">
 
-        <div>Starbucks</div>
-        <div>$5.54</div>
-        <div class="delete">
-          <button name="delete-expense" class="delete-expense">
-            <img src="./images/trash.svg" alt="Tash" />
-          </button>
-        </div>
-
-        <div>Starbucks</div>
-        <div>$5.54</div>
-        <div class="delete">
-          <button name="delete-expense" class="delete-expense">
-            <img src="./images/trash.svg" alt="Tash" />
-          </button>
-        </div>
-
-        <div>Starbucks</div>
-        <div>$5.54</div>
-        <div class="delete">
-          <button name="delete-expense" class="delete-expense">
-            <img src="./images/trash.svg" alt="Tash" />
-          </button>
-        </div>
 
       </div>
     </div>
 
     <div class="summary-panel">
       <div class="summary-item">
-        <div class="summary-label">Income</div>
-        <div class="summary-amount">$42,000.00</div>
+        <div class="summary-label income">Income</div>
+        <div class="summary-amount income">$0</div>
       </div>
 
       <div class="summary-item">
-        <div class="summary-label">Expenses</div>
-        <div class="summary-amount">$42,000.00</div>
+        <div class="summary-label expenses">Expenses</div>
+        <div class="summary-amount expenses">$0</div>
       </div>
 
       <div class="summary-item">
-        <div class="summary-label">Balance</div>
-        <div class="summary-amount">$42,000.00</div>
+        <div class="summary-label balance">Balance</div>
+        <div class="summary-amount balance">$0</div>
       </div>
     </div>
   </div>
