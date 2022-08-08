@@ -4,6 +4,7 @@ const creditCardWrapper = document.getElementsByClassName(
 const CreditCardNumber = document.querySelector(
   "div.field input[name='card-number']"
 );
+const CreditCardCVV = document.querySelector("div.field input[name='cvv']");
 
 CreditCardNumber.addEventListener("keyup", () => {
   switch (
@@ -27,3 +28,9 @@ CreditCardNumber.addEventListener("keyup", () => {
 function flipCard(cardType) {
   creditCardWrapper.setAttribute("class", `credit-card__wrapper ${cardType}`);
 }
+
+document.addEventListener("click", () => {
+  if (document.activeElement == CreditCardCVV) {
+    creditCardWrapper.classList.add("flip");
+  } else creditCardWrapper.classList.remove("flip");
+});
