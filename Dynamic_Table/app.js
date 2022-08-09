@@ -188,24 +188,18 @@ const data = [
 ];
 
 printData();
-currentPage.oninput = printData;
 previousButton.onclick = () => changePage(-1);
 nextButton.onclick = () => changePage(1);
 
 function printData() {
-  let page;
-  if (currentPage.value >= 1 && currentPage.value <= 3) {
-    page = currentPage.value;
-  } else if (currentPage.value > 3) page = 3;
-  else page = 1;
-
+  const page = currentPage.value;
   const pageSize = 10;
 
   table.innerHTML = data
     .slice(pageSize * (page - 1), pageSize * page)
     .map(
       (element) => `
-    <tr>
+    <tr id="person-${element.id}">
         <td>${element.id}</td>
         <td class="name">
             <input type="text" disabled="disabled" name="person-name-${element.id}" value="${element.name}" />
@@ -217,10 +211,10 @@ function printData() {
             <input type="text" disabled="disabled" name="person-title-${element.id}" value="${element.title}" />
         </td>
         <td>
-            <button class="update" name="person-update-${element.id}" id="personUpdate${element.id}">
+            <button class="update" name="person-update-${element.id}" id="personUpdate${element.id}" onclick="saveData(${element.id})">
                 <img src="./images/update.svg" alt="Update" class="update" />
             </button>
-            <button class="edit" name="person-edit-${element.id}" id="personEdit${element.id}">
+            <button class="edit" name="person-edit-${element.id}" id="personEdit${element.id}" onclick="editData(${element.id})">
                 <img src="./images/edit.svg" alt="Edit" class="edit" />
             </button>
         </td>
@@ -231,6 +225,45 @@ function printData() {
 }
 
 function changePage(direction) {
-  currentPage.value = parseInt(currentPage.value) + direction;
-  printData();
+  const pageNumber = parseInt(currentPage.value) + direction;
+  if (pageNumber >= 1 && pageNumber <= 3) {
+    currentPage.value = pageNumber;
+    printData();
+  }
+}
+
+function editData(index) {
+  document.getElementById(`person-${index}`).classList.add("edit");
+  document
+    .querySelector(`input[name="person-name-${index}"] `)
+    .removeAttribute("disabled");
+  document
+    .querySelector(`input[name="person-email-${index}"] `)
+    .removeAttribute("disabled");
+  document
+    .querySelector(`input[name="person-title-${index}"] `)
+    .removeAttribute("disabled");
+}
+
+function saveData(index) {
+  document.getElementById(`person-${index}`).classList.remove("edit");
+  document
+    .querySelector(`input[name="person-name-${index}"] `)
+    .setAttribute("disabled", "disabled");
+  document
+    .querySelector(`input[name="person-email-${index}"] `)
+    .setAttribute("disabled", "disabled");
+  document
+    .querySelector(`input[name="person-title-${index}"] `)
+    .setAttribute("disabled", "disabled");
+
+  data[index - 1].name = document.querySelector(
+    `input[name="person-name-${index}"] `
+  ).value;
+  data[index - 1].email = document.querySelector(
+    `input[name="person-email-${index}"] `
+  ).value;
+  data[index - 1].title = document.querySelector(
+    `input[name="person-title-${index}"] `
+  ).value;
 }
