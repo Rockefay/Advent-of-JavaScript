@@ -236,6 +236,7 @@ function changePage(direction) {
       pageSize * pageNumber
     );
     printData();
+    clearButtons();
   }
 }
 
