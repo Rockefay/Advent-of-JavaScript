@@ -1,4 +1,5 @@
 const table = document.querySelector("tbody");
+const sortButtons = document.querySelectorAll("button.sort");
 
 const currentPage = document.getElementById("currentPage");
 const previousButton = document.getElementById("previous");
@@ -186,17 +187,19 @@ const data = [
     title: "Scrum Master",
   },
 ];
+const pageSize = 10;
+
+let currentData = data.slice(0, pageSize);
 
 printData();
 previousButton.onclick = () => changePage(-1);
 nextButton.onclick = () => changePage(1);
+for (let i = 0; i < sortButtons.length; i++) {
+  sortButtons[i].onclick = () => sortData(sortButtons[i].getAttribute("id"));
+}
 
 function printData() {
-  const page = currentPage.value;
-  const pageSize = 10;
-
-  table.innerHTML = data
-    .slice(pageSize * (page - 1), pageSize * page)
+  table.innerHTML = currentData
     .map(
       (element) => `
     <tr id="person-${element.id}">
@@ -228,6 +231,10 @@ function changePage(direction) {
   const pageNumber = parseInt(currentPage.value) + direction;
   if (pageNumber >= 1 && pageNumber <= 3) {
     currentPage.value = pageNumber;
+    currentData = data.slice(
+      pageSize * (pageNumber - 1),
+      pageSize * pageNumber
+    );
     printData();
   }
 }
@@ -267,3 +274,34 @@ function saveData(index) {
     `input[name="person-title-${index}"] `
   ).value;
 }
+
+function sortData(dataType) {
+  const button = document.querySelector(`button#${dataType}`);
+  if (button.classList.contains("ascending")) {
+    clearButtons();
+    button.classList.remove("ascending");
+    button.classList.add("descending");
+
+    currentData = currentData.sort((a, b) =>
+      a[dataType] > b[dataType] ? 1 : -1
+    );
+  } else {
+    clearButtons();
+    button.classList.remove("descending");
+    button.classList.add("ascending");
+
+    currentData = currentData.sort((a, b) =>
+      a[dataType] > b[dataType] ? -1 : 1
+    );
+  }
+
+  printData();
+}
+
+const clearButtons = () => {
+  const buttons = document.querySelectorAll("button.sort");
+  buttons.forEach((button) => {
+    button.classList.remove("ascending");
+    button.classList.remove("descending");
+  });
+};
